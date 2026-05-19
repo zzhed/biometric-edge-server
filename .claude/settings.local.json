@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mvn dependency:resolve -DincludeArtifactIds=mybatis-spring-boot3-starter -U)",
+      "WebFetch(domain:mvnrepository.com)",
+      "Bash(curl:*)",
+      "Bash(mvn clean:*)",
+      "Bash(mvn spring-boot:run)",
+      "Bash(mysql:*)",
+      "Bash(netstat -ano)",
+      "Bash(mvn spring-boot:run -q)"
+    ]
+  }
+}
