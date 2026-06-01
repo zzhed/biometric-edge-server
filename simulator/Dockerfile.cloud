@@ -1,0 +1,6 @@
+FROM python:3.11-slim
+ENV NODE_TYPE=cloud MIPS=8000 PORT=5001
+RUN pip install --no-cache-dir numpy
+COPY task_simulator.py /app/
+WORKDIR /app
+CMD ["python", "task_simulator.py"]

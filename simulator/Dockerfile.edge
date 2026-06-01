@@ -1,0 +1,5 @@
+FROM python:3.11-slim
+ENV NODE_TYPE=edge MIPS=2000 PORT=5001
+COPY task_simulator.py /app/
+WORKDIR /app
+CMD ["python", "task_simulator.py"]

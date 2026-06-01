@@ -1,6 +1,5 @@
 package com.biometric.entity;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,11 +11,14 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Workflow {
+public class EdgeNode {
     private Long id;
     private String name;
-    private String nodes;
-    private String edges;
+    private String tier;
+    private String host;
+    private Integer port;
+    private Integer mips;
+    private String status;
+    private Double cpuUsage;
     private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
 }

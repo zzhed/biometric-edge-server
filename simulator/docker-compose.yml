@@ -1,0 +1,69 @@
+version: "3.8"
+services:
+  cloud:
+    build:
+      context: .
+      dockerfile: Dockerfile.cloud
+    container_name: edge-cloud
+    ports:
+      - "5101:5001"
+    environment:
+      - NODE_TYPE=cloud
+      - MIPS=8000
+      - PORT=5001
+    deploy:
+      resources:
+        limits:
+          cpus: "4"
+          memory: "8g"
+
+  edge-1:
+    build:
+      context: .
+      dockerfile: Dockerfile.edge
+    container_name: edge-fog-1
+    ports:
+      - "5201:5001"
+    environment:
+      - NODE_TYPE=edge
+      - MIPS=2000
+      - PORT=5001
+    deploy:
+      resources:
+        limits:
+          cpus: "2"
+          memory: "4g"
+
+  edge-2:
+    build:
+      context: .
+      dockerfile: Dockerfile.edge
+    container_name: edge-fog-2
+    ports:
+      - "5202:5001"
+    environment:
+      - NODE_TYPE=edge
+      - MIPS=2000
+      - PORT=5001
+    deploy:
+      resources:
+        limits:
+          cpus: "2"
+          memory: "4g"
+
+  device-1:
+    build:
+      context: .
+      dockerfile: Dockerfile.device
+    container_name: edge-device-1
+    ports:
+      - "5301:5001"
+    environment:
+      - NODE_TYPE=device
+      - MIPS=400
+      - PORT=5001
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+          memory: "1g"

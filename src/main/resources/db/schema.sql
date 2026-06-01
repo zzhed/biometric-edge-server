@@ -28,6 +28,36 @@ CREATE TABLE IF NOT EXISTS dataset_info (
     created_at   DATETIME     DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+CREATE TABLE IF NOT EXISTS edge_node (
+    id          BIGINT AUTO_INCREMENT PRIMARY KEY,
+    name        VARCHAR(128) NOT NULL UNIQUE,
+    tier        VARCHAR(16)  NOT NULL COMMENT 'cloud/edge/device',
+    host        VARCHAR(128) NOT NULL,
+    port        INT          NOT NULL,
+    mips        INT          DEFAULT 1000,
+    status      VARCHAR(16)  DEFAULT 'online' COMMENT 'online/offline/busy',
+    cpu_usage   DOUBLE       DEFAULT 0,
+    created_at  DATETIME     DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Seed edge nodes matching docker-compose
+INSERT IGNORE INTO edge_node (name, tier, host, port, mips, status) VALUES
+('Cloud-GPU', 'cloud', 'localhost', 5101, 8000, 'online'),
+('Edge-Fog-1', 'edge', 'localhost', 5201, 2000, 'online'),
+('Edge-Fog-2', 'edge', 'localhost', 5202, 2000, 'online'),
+('Device-Edge-1', 'device', 'localhost', 5301, 400, 'online');
+
+CREATE TABLE IF NOT EXISTS edge_task_log (
+    id          BIGINT AUTO_INCREMENT PRIMARY KEY,
+    node_id     BIGINT       NOT NULL,
+    task_type   VARCHAR(32)  NOT NULL COMMENT 'preprocess/extract/protect/match/evaluate',
+    workload    INT          DEFAULT 100,
+    latency_ms  BIGINT       DEFAULT 0,
+    energy_mj   DOUBLE       DEFAULT 0,
+    status      VARCHAR(16)  DEFAULT 'success',
+    created_at  DATETIME     DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 CREATE TABLE IF NOT EXISTS workflow (
     id          BIGINT AUTO_INCREMENT PRIMARY KEY,
     name        VARCHAR(256) NOT NULL,

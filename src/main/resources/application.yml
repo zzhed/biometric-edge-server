@@ -2,6 +2,10 @@ server:
   port: 8081
 
 spring:
+  profiles:
+    active: dev
+  main:
+    allow-circular-references: true
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/privacybioworkflow?useSSL=false&serverTimezone=Asia/Shanghai&characterEncoding=UTF-8
@@ -9,7 +13,7 @@ spring:
     password: 1234
   sql:
     init:
-      mode: always
+      mode: never
       schema-locations: classpath:db/schema.sql
 
 mybatis:
@@ -17,6 +21,21 @@ mybatis:
     map-underscore-to-camel-case: true
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
+
 jwt:
   secret: biometric-edge-server-jwt-secret-key-2026
   expiration: 86400000  # 24 hours in ms
+
+logging:
+  config: classpath:logback-custom.xml
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %pid --- [%thread] %logger{36} : %msg%n"
+  level:
+    root: INFO
+    org.cloudsimplus: INFO          
+    org.apache.ibatis: INFO
+    org.hibernate.validator: WARN
+    org.jboss.logging: INFO
+    com.biometric: DEBUG
+
+
