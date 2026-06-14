@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
 
+import java.util.HashMap;
 import java.util.Map;
 
 @Component
@@ -30,8 +31,11 @@ public class JwtInterceptor implements HandlerInterceptor {
         if (token == null || !jwtUtil.validateToken(token)) {
             response.setStatus(HttpStatus.UNAUTHORIZED.value());
             response.setContentType("application/json;charset=UTF-8");
-            response.getWriter().write(objectMapper.writeValueAsString(
-                    Map.of("code", 401, "message", "未登录或 token 已过期", "data", null)));
+            Map<String, Object> err = new HashMap<>();
+            err.put("code", 401);
+            err.put("message", "未登录或 token 已过期");
+            err.put("data", null);
+            response.getWriter().write(objectMapper.writeValueAsString(err));
             return false;
         }
 

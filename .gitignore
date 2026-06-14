@@ -14,3 +14,12 @@ out/
 *.rar
 **/node_modules/
 .vscode/
+# 生成数据与模型文件
+simulator/data/samples/
+simulator/data/aligned/
+simulator/data/features/
+simulator/data/templates/
+simulator/data/protected/
+simulator/data/models/
+**/__pycache__/
+.claude/

@@ -16,6 +16,7 @@ public class DatasetInfo {
     private String name;
     private String modality;
     private Integer sampleCount;
+    private String storagePath;
     private String description;
     private LocalDateTime createdAt;
 }

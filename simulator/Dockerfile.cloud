@@ -1,6 +1,8 @@
-FROM python:3.11-slim
+FROM python:3.12-slim
 ENV NODE_TYPE=cloud MIPS=8000 PORT=5001
-RUN pip install --no-cache-dir numpy
+RUN pip install --no-cache-dir -i https://mirrors.aliyun.com/pypi/simple/ fastapi uvicorn numpy onnxruntime insightface && pip install --no-cache-dir --force-reinstall -i https://mirrors.aliyun.com/pypi/simple/ opencv-python-headless
 COPY task_simulator.py /app/
+COPY biometric_algo/ /app/biometric_algo/
 WORKDIR /app
-CMD ["python", "task_simulator.py"]
+EXPOSE 5001
+CMD ["uvicorn", "task_simulator:app", "--host", "0.0.0.0", "--port", "5001", "--log-level", "warning"]

@@ -11,6 +11,11 @@ services:
       - NODE_TYPE=cloud
       - MIPS=8000
       - PORT=5001
+      - DATA_DIR=/data
+    volumes:
+      - ./data:/data
+      - ./task_simulator.py:/app/task_simulator.py
+      - ./biometric_algo:/app/biometric_algo
     deploy:
       resources:
         limits:
@@ -28,6 +33,11 @@ services:
       - NODE_TYPE=edge
       - MIPS=2000
       - PORT=5001
+      - DATA_DIR=/data
+    volumes:
+      - ./data:/data
+      - ./task_simulator.py:/app/task_simulator.py
+      - ./biometric_algo:/app/biometric_algo
     deploy:
       resources:
         limits:
@@ -45,6 +55,9 @@ services:
       - NODE_TYPE=edge
       - MIPS=2000
       - PORT=5001
+      - DATA_DIR=/data
+    volumes:
+      - ./data:/data
     deploy:
       resources:
         limits:
@@ -62,6 +75,11 @@ services:
       - NODE_TYPE=device
       - MIPS=400
       - PORT=5001
+      - DATA_DIR=/data
+    volumes:
+      - ./data:/data
+      - ./task_simulator.py:/app/task_simulator.py
+      - ./biometric_algo:/app/biometric_algo
     deploy:
       resources:
         limits:
